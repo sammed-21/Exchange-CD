@@ -8,7 +8,7 @@ import { addLiquidity, calculateCD } from "@/utils/addLiquidity";
 import {
   getCDTOkenBalance,
   getEtherBalance,
-  getLPTokensBalance,
+  getLPTOkenBalance,
   getReserveOfCDTokens,
 } from "../utils/getAmount";
 import {
@@ -61,7 +61,7 @@ export default function Home() {
       //get amount of eth user account have
       const _ethBalance = await getEtherBalance(provider, address);
       const _cdBalance = await getCDTOkenBalance(provider, address);
-      const _lpBalance = await getLPTokensBalance(provider, address);
+      const _lpBalance = await getLPTOkenBalance(provider, address);
       const _reservedCD = await getReserveOfCDTokens(provider);
       const _ethBalanceContract = await getEtherBalance(provider, null, true);
       setEtherBalance(_ethBalance);
@@ -137,7 +137,7 @@ export default function Home() {
         const signer = await getProviderOrSigner(true);
         setLoading(true);
         await addLiquidity(signer, addCDTokens, addEtherWei);
-        setLoading(true);
+        setLoading(false);
         setAddCDTokens(zero);
         await getAmounts();
       } else {
@@ -276,7 +276,7 @@ export default function Home() {
                   }
                   className={styles.input}
                 />
-                <button className={styles.button1} oncClick={_addLiqudity}>
+                <button className={styles.button1} onClick={_addLiqudity}>
                   Add
                 </button>
               </div>
