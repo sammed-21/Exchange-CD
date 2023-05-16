@@ -6,7 +6,7 @@ import Web3Modal from "web3modal";
 import Head from "next/head";
 import { addLiquidity, calculateCD } from "@/utils/addLiquidity";
 import {
-  getCDTokensBalance,
+  getCDTOkenBalance,
   getEtherBalance,
   getLPTokensBalance,
   getReserveOfCDTokens,
@@ -60,7 +60,7 @@ export default function Home() {
       const address = await signer.getAddress();
       //get amount of eth user account have
       const _ethBalance = await getEtherBalance(provider, address);
-      const _cdBalance = await getCDTokensBalance(provider, address);
+      const _cdBalance = await getCDTOkenBalance(provider, address);
       const _lpBalance = await getLPTokensBalance(provider, address);
       const _reservedCD = await getReserveOfCDTokens(provider);
       const _ethBalanceContract = await getEtherBalance(provider, null, true);
@@ -268,8 +268,12 @@ export default function Home() {
                 />
                 <input
                   type="number"
-                  placeholder="Amount of CD Token"
-                  onChange={(e) => setAddCDTokens(e.target.value || "0")}
+                  placeholder="Amount of CryptoDev tokens"
+                  onChange={(e) =>
+                    setAddCDTokens(
+                      BigNumber.from(utils.parseEther(e.target.value || "0"))
+                    )
+                  }
                   className={styles.input}
                 />
                 <button className={styles.button1} oncClick={_addLiqudity}>
